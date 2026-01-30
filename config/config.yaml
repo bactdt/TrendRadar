@@ -120,6 +120,21 @@ rss:
       name: "LoopDNS资讯播报"
       url: "https://rsshub.app/telegram/channel/DNSPODT"
       max_age_days: 1 
+
+    - id: "vps_xhq"
+      name: "VPS信号旗播报"
+      url: "https://rsshub.app/telegram/channel/vps_xhq"
+      max_age_days: 1
+
+    - id: "mdmbeng"
+      name: "beng"
+      url: "https://rsshub.app/telegram/channel/mdmbeng"
+      max_age_days: 1
+
+    - id: "NewlearnerChannel"
+      name: "Newlearnerの自留地"
+      url: "https://rsshub.app/telegram/channel/NewlearnerChannel"
+      max_age_days: 1
       
     # 自定义源示例
     # - id: "custom-feed"
@@ -509,9 +524,9 @@ advanced:
   # 排序权重（用于重新排序不同平台的热搜）
   # 合起来等于 1
   weight:
-    rank: 0.4                         # 排名权重
+    rank: 0.3                         # 排名权重
     frequency: 0.4                    # 频次权重
-    hotness: 0.2                      # 热度权重
+    hotness: 0.3                      # 热度权重
 
   # 多账号限制
   max_accounts_per_channel: 3         # 每个渠道最大账号数量
