@@ -103,37 +103,32 @@ rss:
       
     - id: "zaihuapd"
       name: "在花频道"
-      url: "https://rsshub.app/telegram/channel/zaihuapd"
+      url: "https://rss.app/feeds/m8sOr6QMahMjO7I6.xml"
       max_age_days: 1 
       
     - id: "tnews365"
       name: "竹新社"
-      url: "https://rsshub.app/telegram/channel/tnews365"
+      url: "https://rss.app/feeds/a1DDuZaNsCZAtD7g.xml"
       max_age_days: 1 
 
     - id: "DNSPODT"
       name: "LoopDNS资讯播报"
-      url: "https://rsshub.app/telegram/channel/DNSPODT"
-      max_age_days: 1 
-    
-    - id: "DNSPODT"
-      name: "LoopDNS资讯播报"
-      url: "https://rsshub.app/telegram/channel/DNSPODT"
+      url: "https://rss.app/feeds/MPe1NhRyXx5Uf0wq.xml"
       max_age_days: 1 
 
     - id: "vps_xhq"
       name: "VPS信号旗播报"
-      url: "https://rsshub.app/telegram/channel/vps_xhq"
+      url: "https://rss.app/feeds/WVCbHIZZAf9HJ5Sc.xml"
       max_age_days: 1
 
     - id: "mdmbeng"
       name: "beng"
-      url: "https://rsshub.app/telegram/channel/mdmbeng"
+      url: "https://rss.app/feeds/spsC9Yb8023pMaiD.xml"
       max_age_days: 1
 
     - id: "NewlearnerChannel"
       name: "Newlearnerの自留地"
-      url: "https://rsshub.app/telegram/channel/NewlearnerChannel"
+      url: "https://rss.app/feeds/RsQ6AKCbaLhh681Q.xml"
       max_age_days: 1
       
     # 自定义源示例
