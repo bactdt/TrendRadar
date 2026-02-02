@@ -485,7 +485,7 @@ ai_translation:
   # 翻译目标语言
   # 格式：自然语言描述
   # 示例: "Chinese", "Korean", "法语"
-  language: "English"
+  language: "Chinese"
 
   # 提示词配置文件路径（相对于 config 目录）
   prompt_file: "ai_translation_prompt.txt"
