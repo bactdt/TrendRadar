@@ -165,7 +165,7 @@ rss:
 
     - id: "reuters"
       name: "路透社"
-      url: "https://feedx.net/rss/reuters.xml"
+      url: "https://reuters.buzzing.cc/feed.xml"
 
     - id: "rfi"
       name: "法国国际广播"
