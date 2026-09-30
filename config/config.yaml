@@ -40,8 +40,8 @@ app:
 # 详细时间线图请查看 config/timeline.yaml
 # ===============================================================
 schedule:
-  enabled: false                        # 是否启用调度系统（true=启用, false=关闭，默认关闭）
-  preset: "always_on"             # 预设模板名称（见上方说明）
+  enabled: true                        # 是否启用调度系统（true=启用, false=关闭，默认关闭）
+  preset: "custom"             # 预设模板名称（见上方说明）
 
 
 # ===============================================================
@@ -74,10 +74,6 @@ platforms:
       name: "bilibili 热搜"
     - id: "cls-hot"
       name: "财联社热门"
-    - id: "tieba"
-      name: "贴吧"
-    - id: "weibo"
-      name: "微博"
     - id: "douyin"
       name: "抖音"
     - id: "zhihu"
@@ -148,16 +144,48 @@ rss:
       url: "https://rsssumo.site/telegram/channel/NewlearnerChannel"
       max_age_days: 1
 
+    - id: "caixin"
+      name: "财新"
+      url: "https://rsssumo.site/telegram/channel/caixin_web"
+      max_age_days: 1
 
+    - id: "bbc_news"
+      name: "bbc"
+      url: "https://quanwenrss.com/bbc"
+      max_age_days: 1
 
+    - id: "bloomberg"
+      name: "彭博社"
+      url: "https://quanwenrss.com/bloomberg-cn"
+      max_age_days: 1
 
+    - id: "apnews"
+      name: "美联社"
+      url: "https://quanwenrss.com/apnews"
 
+    - id: "reuters"
+      name: "路透社"
+      url: "https://feedx.net/rss/reuters.xml"
 
+    - id: "rfi"
+      name: "法国国际广播"
+      url: "https://feedx.net/rss/rfi.xml"
 
+    - id: "dw"
+      name: "德国之声"
+      url: "https://feedx.net/rss/dw.xml"
 
+    - id: "nytime"
+      name: "纽约时报"
+      url: "https://quanwenrss.com/nytime"
 
+    - id: "wsj"
+      name: "华尔街日报"
+      url: "https://plink.anyfeeder.com/wsj/cn"
 
-
+    - id: "theinitium"
+      name: "端传媒"
+      url: "https://rsssumo.site/theinitium/app"
 
     # 自定义源示例
     # - id: "custom-feed"
@@ -257,7 +285,7 @@ display:
     ai_analysis: true # AI 分析区域（true=显示, false=隐藏）
   standalone:
     platforms: ["wallstreetcn-hot","cls-hot"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
-    rss_feeds: []                                # RSS 源 ID 列表（如 ["hacker-news"]）
+    rss_feeds: ["caixin","zaihuapd","DNSPODT","reuters","bbc_news"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 20                                # 每个源最多展示条数（0=不限制）
 
 
@@ -329,7 +357,7 @@ storage:
   formats:
     sqlite: true                      # 主存储（必须保持 true，请勿关闭）
     txt: false                        # 是否生成 TXT 快照（true=生成, false=不生成）
-    html: true                        # 是否生成 HTML 报告（true=生成, false=不生成）
+    html: false                        # 是否生成 HTML 报告（true=生成, false=不生成）
                                       # ⚠️ 邮件推送或者需要看网页版报告必须设为 true
 
   # 本地存储配置
@@ -374,7 +402,7 @@ ai:
   # 完整列表: https://docs.litellm.ai/docs/providers
   # 如果你对于看英文文档比较头疼，那么可以点击页面右下角的 【Ask AI】 ,用中文询问怎么配置
 
-  model: "openai/deepseek-v4.1-flash"
+  model: "openai/gpt-6.1-sol"
 
   api_key: ""                       # API Key（建议使用环境变量 AI_API_KEY）
   
@@ -407,8 +435,8 @@ ai:
   max_tokens: 5000                  # 最大生成 token 数
                                     # 注意：如果 API 不支持此参数(报 HTTP 400)，请设为 0 以禁用发送
   # 高级选项
-  num_retries: 1                    # 失败重试次数
-  fallback_models: []               # 备用模型列表（可选）
+  num_retries: 3                    # 失败重试次数
+  fallback_models: [openai/deepseek-4.1-flash]               # 备用模型列表（可选）
                                     # 示例: ["openai/gpt-4o-mini", "openai/deepseek-ai/DeepSeek-V3"]
 
   # 额外参数（一般无需修改，删掉 # 号即可启用）
