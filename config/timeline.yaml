@@ -412,7 +412,7 @@ custom:
     morning_push:
       name: "早间增量推送"
       start: "07:20"
-      end: "08:00"
+      end: "10:00"
       collect: true
       analyze: true
       ai_mode: "incremental"
@@ -433,7 +433,7 @@ custom:
     evening_summary:
       name: "晚间全天汇总"
       start: "20:00"
-      end: "22:00"
+      end: "23:00"
       collect: true
       analyze: true
       ai_mode: "daily"
