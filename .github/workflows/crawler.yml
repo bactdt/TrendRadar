@@ -29,15 +29,15 @@ on:
     #
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     #
-    # 📝 修改运行时间：只改第一个数字（0-59），表示每小时第几分钟运行
-    # 📝 Change time: Only modify the first number (0-59) = minute of each hour
+    # 📝 GitHub cron 使用 UTC；以下时间换算为北京时间（Asia/Shanghai）
+    # 📝 GitHub cron uses UTC; the times below are converted to Beijing time
+    #   07:40 北京时间 → 23:40 UTC（早间分析与推送）
+    #   12:00-15:00 北京时间 → 04:00-07:00 UTC（午间采集）
+    #   23:00 北京时间 → 15:00 UTC（晚间分析与推送）
     #
-    # 示例 / Examples:
-    #   "15 * * * *"     → 每小时第15分钟 / minute 15 every hour
-    #   "30 0-14 * * *"  → 北京时间 8:00-22:00 每小时第30分钟 / Beijing 8am-10pm
-    #
-   
-    - cron: "45 * * * *"
+    - cron: "40 23 * * *"
+    - cron: "0 4-7 * * *"
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 concurrency:
