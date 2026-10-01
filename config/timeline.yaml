@@ -433,7 +433,7 @@ custom:
     evening_summary:
       name: "晚间全天汇总"
       start: "20:00"
-      end: "23:00"
+      end: "23:59"
       collect: true
       analyze: true
       ai_mode: "daily"
