@@ -65,7 +65,8 @@ class AIClient:
             "timeout": kwargs.get("timeout", self.timeout),
             "num_retries": kwargs.get("num_retries", self.num_retries),
             # 项目不使用 LiteLLM 追踪日志，关闭后台日志队列以避免退出时残留异步任务
-            "no-log": True,
+            # 注意：参数名必须是 no_log（下划线），写成 "no-log" 会被当成未知参数透传，日志队列仍然会启动
+            "no_log": True,
         }
 
         # 添加 API Key
