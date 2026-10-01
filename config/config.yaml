@@ -105,7 +105,7 @@ rss:
   # - 不配置：使用全局 freshness_filter.max_age_days（默认 3 天）
   # - 正整数：覆盖全局设置，只推送此天数内的文章
   # - 0：禁用此频道的新鲜度过滤，推送所有文章
-  feeds:
+    feeds:
     - id: "hacker-news"
       name: "Hacker News"
       url: "https://hnrss.org/frontpage"
@@ -139,6 +139,10 @@ rss:
       url: "https://rsssumo.site/telegram/channel/mdmbeng"
       max_age_days: 1
 
+    - id: "NewlearnerChannel"
+      name: "Newlearnerの自留地"
+      url: "https://rsssumo.site/telegram/channel/NewlearnerChannel"
+      max_age_days: 1
 
     - id: "bbc_news"
       name: "bbc"
@@ -156,7 +160,7 @@ rss:
 
     - id: "reuters"
       name: "路透社"
-      url: "https://reuters.buzzing.cc/feed.xml"
+      url: "https://feedx.net/rss/reuters.xml"
 
     - id: "rfi"
       name: "法国国际广播"
@@ -173,6 +177,10 @@ rss:
     - id: "wsj"
       name: "华尔街日报"
       url: "https://plink.anyfeeder.com/wsj/cn"
+
+    - id: "theinitium"
+      name: "端传媒"
+      url: "https://rsssumo.site/theinitium/app"
 
     # 自定义源示例
     # - id: "custom-feed"
