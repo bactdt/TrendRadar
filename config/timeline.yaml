@@ -411,8 +411,8 @@ custom:
   periods:
     morning_push:
       name: "早间增量推送"
-      start: "07:20"
-      end: "10:00"
+      start: "06:30"
+      end: "11:30"
       collect: true
       analyze: true
       ai_mode: "incremental"
