@@ -31,13 +31,14 @@ on:
     #
     # 📝 GitHub cron 使用 UTC；以下时间换算为北京时间（Asia/Shanghai）
     # 📝 GitHub cron uses UTC; the times below are converted to Beijing time
-    #   07:40 北京时间 → 23:40 UTC（早间分析与推送）
-    #   12:00-15:00 北京时间 → 04:00-07:00 UTC（午间采集）
-    #   23:00 北京时间 → 15:00 UTC（晚间分析与推送）
+    #   每小时第 40 分执行一次（00:40 北京时间 → 16:40 UTC）
+    #   具体做什么由 config/timeline.yaml 的时间段决定：
+    #     morning_push    06:30-11:30 → 早间增量分析与推送（窗口内只推一次）
+    #     noon_collect    12:00-15:00 → 仅采集，不推送
+    #     evening_summary 20:00-23:59 → 晚间全天汇总分析与推送（窗口内只推一次）
+    #   GitHub Actions 的定时任务可能提前或延后数十分钟，故时间窗口留足余量
     #
-    - cron: "40 23 * * *"
-    - cron: "0 4-7 * * *"
-    - cron: "0 15 * * *"
+    - cron: "40 * * * *"
   workflow_dispatch:
 
 concurrency:
