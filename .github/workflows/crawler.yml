@@ -1,8 +1,8 @@
 name: Get Hot News
 
 on:
-  schedule:
-  # enable workflow registration
+  # GitHub Actions 的 schedule 已停用，改由外部定时服务调用 workflow_dispatch API。
+  # GitHub's built-in schedule is disabled; an external scheduler invokes workflow_dispatch.
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     # ⚠️ 试用版说明 / Trial Mode
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -29,16 +29,6 @@ on:
     #
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     #
-    # 📝 GitHub cron 使用 UTC；以下时间换算为北京时间（Asia/Shanghai）
-    # 📝 GitHub cron uses UTC; the times below are converted to Beijing time
-    #   每小时第 40 分执行一次（00:40 北京时间 → 16:40 UTC）
-    #   具体做什么由 config/timeline.yaml 的时间段决定：
-    #     morning_push    06:30-11:30 → 早间增量分析与推送（窗口内只推一次）
-    #     noon_collect    12:00-15:00 → 仅采集，不推送
-    #     evening_summary 20:00-23:59 → 晚间全天汇总分析与推送（窗口内只推一次）
-    #   GitHub Actions 的定时任务可能提前或延后数十分钟，故时间窗口留足余量
-    #
-    - cron: "40 * * * *"
   workflow_dispatch:
 
 concurrency:
