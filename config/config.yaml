@@ -105,7 +105,7 @@ rss:
   # - 不配置：使用全局 freshness_filter.max_age_days（默认 3 天）
   # - 正整数：覆盖全局设置，只推送此天数内的文章
   # - 0：禁用此频道的新鲜度过滤，推送所有文章
-    feeds:
+  feeds:
     - id: "hacker-news"
       name: "Hacker News"
       url: "https://hnrss.org/frontpage"
@@ -142,6 +142,11 @@ rss:
     - id: "NewlearnerChannel"
       name: "Newlearnerの自留地"
       url: "https://rsssumo.site/telegram/channel/NewlearnerChannel"
+      max_age_days: 1
+
+    - id: "caixin"
+      name: "财新网"
+      url: "https://rsssumo.site/telegram/channel/caixin_news"
       max_age_days: 1
 
     - id: "bbc_news"
@@ -276,7 +281,7 @@ display:
     new_items: true # 新增热点区域：含热榜新增 + RSS 新增（true=显示, false=隐藏）
     hotlist: true # 热榜区域：关键词匹配 / AI 智能筛选（true=显示, false=隐藏）
     rss: true # RSS 订阅区域（true=显示并分析, false=隐藏并跳过分析）
-    standalone: false # 独立展示区：完整热榜/RSS，不受关键词过滤（true=显示, false=隐藏）
+    standalone: true # 独立展示区：完整热榜/RSS，不受关键词过滤（true=显示, false=隐藏）
     ai_analysis: true # AI 分析区域（true=显示, false=隐藏）
   standalone:
     platforms: ["wallstreetcn-hot","cls-hot"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
