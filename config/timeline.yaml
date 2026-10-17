@@ -395,44 +395,23 @@ presets:
 #     其余时间走默认配置（静默采集）
 
 custom:
-  name: "早间增量与晚间汇总"
-  description: "早间增量推送，午间采集，晚间全天汇总"
+  name: "全天静默采集与深夜汇总"
+  description: "全天静默采集，仅 23:30 做一次当日全天汇总分析与推送"
 
   default:
     collect: true
     analyze: false
-    ai_mode: "incremental"
+    ai_mode: "current"
     push: false
-    report_mode: "incremental"
+    report_mode: "current"
     once:
       analyze: false
       push: false
 
   periods:
-    morning_push:
-      name: "早间增量推送"
-      start: "06:30"
-      end: "11:30"
-      collect: true
-      analyze: true
-      ai_mode: "incremental"
-      push: true
-      report_mode: "incremental"
-      once:
-        analyze: true
-        push: true
-
-    noon_collect:
-      name: "午间采集"
-      start: "12:00"
-      end: "15:00"
-      collect: true
-      analyze: false
-      push: false
-
     evening_summary:
       name: "晚间全天汇总"
-      start: "20:00"
+      start: "23:30"
       end: "23:59"
       collect: true
       analyze: true
@@ -442,18 +421,9 @@ custom:
       once:
         analyze: true
         push: true
-
-    day_night:
-      name: "晚夜"
-      start: "03:00"
-      end: "06:00"
-      collect: true
-      analyze: false
-      push: false
-      report_mode: incremental
   day_plans:
     all_day:
-      periods: ["morning_push", "noon_collect", "evening_summary", "day_night"]
+      periods: ["evening_summary"]
 
   week_map:
     1: "all_day"
