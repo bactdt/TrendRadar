@@ -173,7 +173,7 @@ rss:
 
     - id: "dw"
       name: "德国之声"
-      url: "https://feedx.net/rss/dw.xml"
+      url: "https://rss.dw.com/rdf/rss-chi-all"
 
     - id: "nytime"
       name: "纽约时报"

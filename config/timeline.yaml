@@ -396,7 +396,7 @@ presets:
 
 custom:
   name: "全天静默采集与深夜汇总"
-  description: "全天静默采集，仅 23:30 做一次当日全天汇总分析与推送"
+  description: "全天静默采集，23:00-23:59 内只做一次当日全天汇总分析与推送"
 
   default:
     collect: true
@@ -411,7 +411,7 @@ custom:
   periods:
     evening_summary:
       name: "晚间全天汇总"
-      start: "23:30"
+      start: "23:00"
       end: "23:59"
       collect: true
       analyze: true
