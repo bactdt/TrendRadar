@@ -35,46 +35,62 @@ class ParsedRSSItem:
 class RSSParser:
     """RSS 解析器"""
 
-    def __init__(self, max_summary_length: int = 500):
+    def __init__(self, max_summary_length: int = 500, max_title_length: Optional[int] = None):
         """
         初始化解析器
 
         Args:
             max_summary_length: 摘要最大长度
+            max_title_length: 标题最大长度（None=不限制，正整数=超长标题截断加 "..."）
         """
         if not HAS_FEEDPARSER:
             raise ImportError("RSS 解析需要安装 feedparser: pip install feedparser")
 
         self.max_summary_length = max_summary_length
+        self.max_title_length = max_title_length
 
-    def parse(self, content: str, feed_url: str = "") -> List[ParsedRSSItem]:
+    def parse(self, content: str, feed_url: str = "", max_title_length: Optional[int] = None) -> List[ParsedRSSItem]:
         """
         解析 RSS/Atom/JSON Feed 内容
 
         Args:
             content: Feed 内容（XML 或 JSON）
             feed_url: Feed URL（用于错误提示）
+            max_title_length: 本次解析的标题最大长度（None=使用实例默认值）
 
         Returns:
             解析后的条目列表
         """
+        # 标题长度上限：入参优先，其次实例默认
+        title_cap = max_title_length if max_title_length is not None else self.max_title_length
+
         # 先尝试检测 JSON Feed
         if self._is_json_feed(content):
-            return self._parse_json_feed(content, feed_url)
+            items = self._parse_json_feed(content, feed_url)
+        else:
+            # 使用 feedparser 解析 RSS/Atom
+            feed = feedparser.parse(content)
 
-        # 使用 feedparser 解析 RSS/Atom
-        feed = feedparser.parse(content)
+            if feed.bozo and not feed.entries:
+                raise ValueError(f"RSS 解析失败 ({feed_url}): {feed.bozo_exception}")
 
-        if feed.bozo and not feed.entries:
-            raise ValueError(f"RSS 解析失败 ({feed_url}): {feed.bozo_exception}")
+            items = []
+            for entry in feed.entries:
+                item = self._parse_entry(entry)
+                if item:
+                    items.append(item)
 
-        items = []
-        for entry in feed.entries:
-            item = self._parse_entry(entry)
-            if item:
-                items.append(item)
+        if title_cap and title_cap > 0:
+            for item in items:
+                item.title = self._apply_title_cap(item.title, title_cap)
 
         return items
+
+    def _apply_title_cap(self, title: str, cap: int) -> str:
+        """截断超长标题（超出部分以 "..." 结尾）"""
+        if not title or len(title) <= cap:
+            return title
+        return title[:cap].rstrip() + "..."
 
     def _is_json_feed(self, content: str) -> bool:
         """

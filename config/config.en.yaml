@@ -127,6 +127,12 @@ rss:
   # - Not set: use global freshness_filter.max_age_days (default 3 days)
   # - Positive integer: override the global setting, push only articles within this many days
   # - 0: disable freshness filtering for this feed, push all articles
+  #
+  # A single feed may set max_title_length to cap the title length (truncated with ...):
+  # - Not set: no limit for normal feeds; Telegram relay feeds (URL containing "telegram" or "t.me") default to 128 chars
+  #   (Telegram messages have no title, and relay services may use the whole message text as the title,
+  #   which once leaked entire AI conversations into the push)
+  # - Positive integer: cap the title length for this feed
   feeds:
     - id: "hacker-news"
       name: "Hacker News"

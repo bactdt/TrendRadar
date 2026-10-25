@@ -29,6 +29,18 @@ class RSSFeedConfig:
     max_items: int = 0          # 最大条目数（0=不限制）
     enabled: bool = True        # 是否启用
     max_age_days: Optional[int] = None  # 文章最大年龄（天），覆盖全局设置；None=使用全局，0=禁用过滤
+    max_title_length: Optional[int] = None  # 标题最大长度；None=按默认规则（Telegram 中转源自动截断）
+
+
+# Telegram 频道消息没有独立标题，中转服务可能把整条消息文本作为 RSS 标题，
+# 曾导致 AI 对话/提示词全文泄漏进推送。对 Telegram 中转源默认限制标题长度。
+TELEGRAM_MAX_TITLE_LENGTH = 128
+
+
+def is_telegram_feed_url(url: str) -> bool:
+    """判断 RSS 源 URL 是否为 Telegram 频道中转源"""
+    lowered = (url or "").lower()
+    return "telegram" in lowered or "t.me/" in lowered
 
 
 class RSSFetcher:
@@ -164,7 +176,11 @@ class RSSFetcher:
                     ):
                         raise
 
-            parsed_items = self.parser.parse(response.text, feed.url)
+            # 标题长度限制：单源配置优先，未配置时对 Telegram 中转源自动生效默认上限
+            max_title_length = feed.max_title_length
+            if max_title_length is None and is_telegram_feed_url(feed.url):
+                max_title_length = TELEGRAM_MAX_TITLE_LENGTH
+            parsed_items = self.parser.parse(response.text, feed.url, max_title_length=max_title_length)
 
             # 限制条目数量（0=不限制）
             if feed.max_items > 0:
@@ -308,6 +324,21 @@ class RSSFetcher:
                     print(f"[警告] RSS feed '{feed_id}' 的 max_age_days 格式错误：{max_age_days_raw}")
                     max_age_days = None
 
+            # 读取并验证单个 feed 的 max_title_length（可选）
+            max_title_length_raw = feed_config.get("max_title_length")
+            max_title_length = None
+            if max_title_length_raw is not None:
+                try:
+                    max_title_length = int(max_title_length_raw)
+                    if max_title_length <= 0:
+                        feed_id = feed_config.get("id", "unknown")
+                        print(f"[警告] RSS feed '{feed_id}' 的 max_title_length 须为正整数，将使用默认规则")
+                        max_title_length = None
+                except (ValueError, TypeError):
+                    feed_id = feed_config.get("id", "unknown")
+                    print(f"[警告] RSS feed '{feed_id}' 的 max_title_length 格式错误：{max_title_length_raw}")
+                    max_title_length = None
+
             feed = RSSFeedConfig(
                 id=feed_config.get("id", ""),
                 name=feed_config.get("name", ""),
@@ -315,6 +346,7 @@ class RSSFetcher:
                 max_items=feed_config.get("max_items", 0),  # 0=不限制
                 enabled=feed_config.get("enabled", True),
                 max_age_days=max_age_days,  # None=使用全局，0=禁用，>0=覆盖
+                max_title_length=max_title_length,  # None=默认规则（Telegram 中转源自动截断）
             )
             if feed.id and feed.url:
                 feeds.append(feed)

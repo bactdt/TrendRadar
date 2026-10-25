@@ -105,6 +105,11 @@ rss:
   # - 不配置：使用全局 freshness_filter.max_age_days（默认 3 天）
   # - 正整数：覆盖全局设置，只推送此天数内的文章
   # - 0：禁用此频道的新鲜度过滤，推送所有文章
+  #
+  # 单个 feed 可配置 max_title_length 限制标题最大长度（超出截断并加 ...）：
+  # - 不配置：普通源不限制；Telegram 中转源（URL 含 telegram 或 t.me）默认截断到 128 字
+  #   （Telegram 消息没有标题，中转服务可能把整条消息文本当标题，曾导致 AI 对话等超长文本整段进入推送）
+  # - 正整数：限制该 feed 标题最大长度
   feeds:
     - id: "hacker-news"
       name: "Hacker News"
