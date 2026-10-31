@@ -362,7 +362,7 @@ storage:
   formats:
     sqlite: true                      # 主存储（必须保持 true，请勿关闭）
     txt: false                        # 是否生成 TXT 快照（true=生成, false=不生成）
-    html: false                        # 是否生成 HTML 报告（true=生成, false=不生成）
+    html: true                        # 是否生成 HTML 报告（true=生成, false=不生成）
                                       # ⚠️ 邮件推送或者需要看网页版报告必须设为 true
 
   # 本地存储配置
